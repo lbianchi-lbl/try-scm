@@ -13,7 +13,6 @@ def get_versions(variants: List[Dict]):
 
 setuptools_scm_variants = get_versions(
     [
-        {},
         dict(version_scheme="post-release"),
     ]
 )
