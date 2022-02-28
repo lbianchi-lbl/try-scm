@@ -8,17 +8,18 @@ from . import __version__
 _logger = logging.getLogger("mypkg")
 
 
-logging.basicConfig(logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 
 def get_versions(variants: List[Dict]):
     versions = {}
-    try:
-        key = get_version(**kwargs)
-    except LookupError:
-        _logger.exception("Version could not be determined using setuptools_scm")
-    else:
-        versions[key] = kwargs
+    for kwargs in variants:
+        try:
+            key = get_version(**kwargs)
+        except LookupError:
+            _logger.exception("Version could not be determined using setuptools_scm")
+        else:
+            versions[key] = kwargs
     return versions
 
 
