@@ -5,7 +5,10 @@ from setuptools_scm import get_version
 from . import __version__
 
 
-_logger = logging("mypkg")
+_logger = logging.getLogger("mypkg")
+
+
+logging.basicConfig(logging.DEBUG)
 
 
 def get_versions(variants: List[Dict]):
