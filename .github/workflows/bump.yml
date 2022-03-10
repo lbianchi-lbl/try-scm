@@ -27,7 +27,7 @@ jobs:
           next_tag = f"{rest}{int(number) + 1}"
           _set_gha_step_output("incremented", next_tag)
       - name: Push new tag
-        uses: actions-ecosystem/actions-push-tag@v1
+        uses: actions-ecosystem/action-push-tag@v1
         with:
           tag: ${{ steps.increment-tag.outputs.incremented }}
           # message: '${{ steps.increment-tag.outputs.incremented }}: PR ${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
