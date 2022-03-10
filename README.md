@@ -1,0 +1,2 @@
+# Try `setuptools_scm`
+
