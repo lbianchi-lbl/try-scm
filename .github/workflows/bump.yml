@@ -22,6 +22,7 @@ jobs:
               print(f"::set-output name={name}::{val}")
           tags = check_output(["git", "tag"], text=True).strip().split("\n")
           current_tag = tags[-1]
+          print(tags, current_tag, sep="\n")
           _set_gha_step_output("original", current_tag)
           rest, number = re.match(r"(.*?)(\d+)$", current_tag).groups()
           next_tag = f"{rest}{int(number) + 1}"
