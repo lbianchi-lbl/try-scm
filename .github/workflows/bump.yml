@@ -23,7 +23,7 @@ jobs:
           tags = check_output(["git", "tag"], text=True).split("\n")
           current_tag = tags[-1]
           _set_gha_step_output("original", current_tag)
-          rest, number = re.match(r"(.*?)(\d+)$").groups()
+          rest, number = re.match(r"(.*?)(\d+)$", current_tag).groups()
           next_tag = f"{rest}{int(number) + 1}"
           _set_gha_step_output("incremented", next_tag)
       - name: Push new tag
