@@ -38,7 +38,7 @@ jobs:
               ref: 'refs/tags/${{ steps.next-dev-tag.outputs.next-dev-tag }}',
             })
       - name: Notify when tag has been created
-        if: steps.create-tag.outcome.success
+        if: steps.create-tag.outcome == 'success'
         env:
           TAG: ${{ steps.next-dev-tag.outputs.next-dev-tag }}
           TAG_BASE_URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag
