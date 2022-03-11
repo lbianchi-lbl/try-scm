@@ -16,5 +16,7 @@ runs:
     - run: echo "${{ github.action_path }}" >> "$GITHUB_PATH"
       shell: bash
     - id: run-nextversion
-      run: echo "::set-output name=next-dev-tag::$(nextversion.py)"
       shell: bash
+      run: |
+        tag="$(nextversion.py)"
+        echo "::set-output name=next-dev-tag::$tag"
