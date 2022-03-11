@@ -16,7 +16,7 @@ jobs:
       - name: Display GitHub event payload
         run: |
             echo "::group::GitHub event payload"
-            jq . "$GITHUB_EVENT_PATH"
+            jq < "$GITHUB_EVENT_PATH"
             echo "::endgroup::
       - uses: actions/checkout@v3
         with:
