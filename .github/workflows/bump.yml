@@ -1,9 +1,6 @@
 name: Bump tag
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
   pull_request_target:
     types:
@@ -12,6 +9,7 @@ on:
 jobs:
   bump-tag:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
     steps:
       - name: Display GitHub event payload
         run: |
@@ -39,7 +37,12 @@ jobs:
           _set_gha_step_output("incremented", next_tag)
       - name: Push new tag
         if: 'false'
-        uses: actions-ecosystem/action-push-tag@v1
+        uses: actions/github-script-@v5
         with:
-          tag: ${{ steps.increment-tag.outputs.incremented }}
-          # message: '${{ steps.increment-tag.outputs.incremented }}: PR ${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ github.event.pull_request.merge_commit_sha }}',
+              ref: 'refs/tags/${{ steps.increment-tag.outputs.incremented }}',
+            })
