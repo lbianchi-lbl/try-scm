@@ -25,6 +25,7 @@ jobs:
       - name: Display next dev tag on GitHub Actions job panel
         run:
           echo "::warning ::next-dev-tag=${{ steps.next-dev-tag.outputs.next-dev-tag }}"
+          echo "::notice ::next-dev-tag=${{ steps.next-dev-tag.outputs.next-dev-tag }}"
       - name: Push new tag
         uses: actions/github-script@v5
         if: github.event.pull_request.merged
