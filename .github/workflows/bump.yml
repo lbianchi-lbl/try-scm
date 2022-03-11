@@ -25,7 +25,8 @@ jobs:
       - name: Display next dev tag on GitHub Actions job panel
         run:
           echo "::notice ::The next dev tag is ${{ steps.next-dev-tag.outputs.next-dev-tag }}"
-      - name: Push new tag
+      - name: Create tag
+        id: create-tag
         uses: actions/github-script@v5
         if: github.event.pull_request.merged
         with:
@@ -37,9 +38,9 @@ jobs:
               ref: 'refs/tags/${{ steps.next-dev-tag.outputs.next-dev-tag }}',
             })
       - name: Notify when tag has been created
-        if: success()
+        if: steps.create-tag.outcome.success
         env:
           TAG: ${{ steps.next-dev-tag.outputs.next-dev-tag }}
           TAG_BASE_URL: ${{ github.server_url }}/${{ github.repository }}/releases/tag
         run: |
-          echo "::notice ::Created tag at $TAG/$TAG_BASE_URL"
+          echo "::notice ::Created tag at $TAG_BASE_URL/$TAG"
