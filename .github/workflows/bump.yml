@@ -37,7 +37,7 @@ jobs:
           _set_gha_step_output("incremented", next_tag)
       - name: Push new tag
         if: 'false'
-        uses: actions/github-script-@v5
+        uses: actions/github-script@v5
         with:
           script: |
             github.rest.git.createRef({
