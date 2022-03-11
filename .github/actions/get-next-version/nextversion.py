@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+
 from subprocess import check_output
 import sys
 from typing import Iterable, Iterator, List, NewType
