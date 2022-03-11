@@ -13,28 +13,13 @@ jobs:
     steps:
       - name: Display GitHub event payload
         run: |
-            echo "::group::GitHub event payload"
             jq < "$GITHUB_EVENT_PATH"
-            echo "::endgroup::"
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Increment Git tag by 1
-        id: increment-tag
-        shell: python
-        run: |
-          import re
-          from subprocess import check_output
-
-          def _set_gha_step_output(name, val):
-              print(f"::set-output name={name}::{val}")
-          tags = check_output(["git", "tag"], text=True).strip().split("\n")
-          current_tag = tags[-1]
-          print(tags, current_tag, sep="\n")
-          _set_gha_step_output("original", current_tag)
-          rest, number = re.match(r"(.*?)(\d+)$", current_tag).groups()
-          next_tag = f"{rest}{int(number) + 1}"
-          _set_gha_step_output("incremented", next_tag)
+      - name: Get next dev version tag
+        id: next-dev-tag
+        uses: .github/actions/get-next-version
       - name: Push new tag
         uses: actions/github-script@v5
         with:
@@ -43,5 +28,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: '${{ github.event.pull_request.merge_commit_sha }}',
-              ref: 'refs/tags/${{ steps.increment-tag.outputs.incremented }}',
+              ref: 'refs/tags/${{ steps.next-dev-tag.outputs.next-dev-tag }}',
             })

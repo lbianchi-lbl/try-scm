@@ -1,0 +1,20 @@
+name: Get next dev version
+description: Determine next dev version based on an input
+inputs:
+  starting-tag:
+    description: Version tag to use to compute next tag. Optional, if not given will default to the latest dev Version
+    required: false
+outputs:
+  next-dev-tag:
+    description: Next dev version tag based on the given starting tag
+    value: ${{ steps.run-nextversion.outputs.next-dev-tag }}
+runs:
+  using: composite
+  steps:
+    - run: python -m pip install packaging
+      shell: bash
+    - run: echo "${{ github.action_path }}" >> "$GITHUB_PATH"
+      shell: bash
+    - id: run-nextversion
+      run: echo "::set-output name=next-dev-tag::$(python nextversion.py)"
+      shell: bash
