@@ -36,7 +36,6 @@ jobs:
           next_tag = f"{rest}{int(number) + 1}"
           _set_gha_step_output("incremented", next_tag)
       - name: Push new tag
-        if: 'false'
         uses: actions/github-script@v5
         with:
           script: |
