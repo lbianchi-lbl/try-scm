@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - name: Get next dev version tag
         id: next-dev-tag
-        uses: .github/actions/get-next-version
+        uses: ./.github/actions/get-next-version
       - name: Push new tag
         uses: actions/github-script@v5
         if: github.event.pull_request.merged
