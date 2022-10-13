@@ -20,11 +20,11 @@ def _get_scm_version_config(
         fmt = "+" + local_sep.join(parts)
         return v.format_with(fmt)
 
-
     return {
         "version_scheme": _verbatim_tag,
         "local_scheme": _distance_node_timestamp,
     }
+
 
 setup(
     name="mypkgdistr",
