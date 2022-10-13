@@ -4,11 +4,10 @@ setup(
     name="mypkgdistr",
     packages=find_packages(),
     setup_requires=[
-        "setuptools_scm",
-        "setuptools_scm_git_archive",
+        "setuptools_scm>=7",
     ],
-    install_requires=["setuptools_scm"],
     use_scm_version={
-        "version_scheme": "post-release",
+        "version_scheme": lambda v: str(v.tag),
+        "local_scheme": "node-and-timestamp",
     }
 )
