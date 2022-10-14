@@ -28,7 +28,8 @@ def _get_scm_version_config(
 
 setup(
     name="mypkgdistr",
-    packages=find_packages(),
+    package_dir={"": "src"},
+    packages=find_packages(where="src"),
     setup_requires=[
         "setuptools_scm>=7",
     ],
